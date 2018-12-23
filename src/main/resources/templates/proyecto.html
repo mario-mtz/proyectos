@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://wwww.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head>
+        <title>Administraci&oacute;n de Proyectos</title>
+        <meta charset="ISO-8859-1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    </head>
+    <body>
+ <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">    
+    </ul>
+      <form th:action="@{/logout}" method="POST" class="form-inline my-2 my-lg-0">
+      <button  class="btn btn-outline-success my-2 my-sm-0" type="submit">Salir</button>
+    </form>
+  </div>
+</nav>
+        <div class="container">        
+            <div class="row">
+                <div class="col-10"></div>
+                <div class="col-2" sec:authorize="hasRole('ADMIN')"><a class="btn btn-primary" th:href="@{/proyecto/nuevo}" role="button">Crear Proyecto</a></div>
+              </div>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Id de Proyecto</th>
+                    <th scope="col">Clave</th>
+                    <th scope="col">Descripci&oacute;n</th>                    
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="p: ${proyectos}">
+                    <td th:text="${p.id}"></td>
+                    <td th:text="${p.clave}"></td>
+                    <td th:text="${p.descripcion}"></td>
+                    <td><a class="btn btn-primary" th:href="@{/proyecto/consultar/} + ${p.id}" role="button">Consultar</a></td>
+                    <td sec:authorize="hasRole('ADMIN')"><a  class="btn btn-primary" th:href="@{/proyecto/editar/} + ${p.id}" role="button">Editar</a></td>
+                    <td sec:authorize="hasRole('ADMIN')"><a  class="btn btn-danger" th:href="@{/proyecto/eliminar/} + ${p.id}" role="button">Eliminar</a></td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>  
+    </body>
+</html>
