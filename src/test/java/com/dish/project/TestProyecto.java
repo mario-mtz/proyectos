@@ -66,7 +66,6 @@ public class TestProyecto {
        assertThat(proyectos).asList().isNotEmpty();
        
        assertThat(proyectos.get(0).getManager()).isNotNull();
-       assertThat(proyectos.get(0).getDesarrolladores()).asList().isNotEmpty();
                
        
     }
